@@ -4,6 +4,7 @@ const itemSchema = new mongoose.Schema({
   name: String,
   description: String,
   price: Number,
+  thumbnail: String,
   vendor: { type: mongoose.Schema.Types.ObjectId, ref: 'User' }, // Vendor who added the item
   status: { type: String, enum: ['Available', 'Out of Stock'] }
 });
