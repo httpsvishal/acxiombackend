@@ -31,3 +31,14 @@
 2024-09-10T13:17:29.493Z [info]: MongoDB connected successfully
 2024-09-10T13:45:44.545Z [info]: Server running on port 1400
 2024-09-10T13:45:47.611Z [info]: MongoDB connected successfully
+2024-09-12T10:42:49.513Z [info]: Server running on port 1400
+2024-09-12T10:43:20.323Z [error]: MongoDB connection error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2024-09-12T15:08:02.555Z [info]: Server running on port 1400
+2024-09-12T15:08:32.927Z [error]: MongoDB connection error: MongooseServerSelectionError: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+2024-09-12T15:11:42.889Z [info]: Server running on port 1400
+2024-09-12T15:11:46.435Z [info]: MongoDB connected successfully
+2024-09-12T15:12:47.441Z [info]: User signed up: vishalkumar524@gmail.com
+2024-09-12T15:29:32.269Z [info]: User signed up: vishalkumar455@gmail.com
+2024-09-12T17:48:42.579Z [error]: Error during signup: 545C0000:error:0A000438:SSL routines:ssl3_read_bytes:tlsv1 alert internal error:c:\ws\deps\openssl\openssl\ssl\record\rec_layer_s3.c:1590:SSL alert number 80
+
+2024-09-12T18:07:15.201Z [info]: Server running on port 1400

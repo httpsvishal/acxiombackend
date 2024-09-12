@@ -1,11 +1,11 @@
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
-const User = require('../models/UserModel'); // Ensure User model is imported
 const logger = require('../logger'); // Import the logger
+const User = require('../models/UserModel'); // Import the User model
+const bcrypt = require('bcrypt'); // Import bcrypt for password hashing
+const jwt = require('jsonwebtoken'); // Import jsonwebtoken for JWT token generation
 
 // User signup (common for all roles: Admin, Vendor, User)
 exports.signup = async (req, res) => {
-  const { name, email, password, role } = req.body;
+  const { name, email, password, role, category } = req.body;
   try {
     // Check if the user already exists
     let user = await User.findOne({ email });
@@ -22,7 +22,16 @@ exports.signup = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 12);
 
     // Create the user
-    user = new User({ name, email, password: hashedPassword, role });
+    const userData = { name, email, password: hashedPassword, role };
+    if (role === 'Admin') {
+      if (!category) {
+        logger.error('Category is required for admin users');
+        return res.status(400).json({ error: 'Category is required for admin users' });
+      }
+      userData.category = category;
+    }
+
+    user = new User(userData);
     await user.save();
 
     // Ensure JWT_SECRET is set
@@ -32,12 +41,12 @@ exports.signup = async (req, res) => {
     }
 
     // Generate JWT token
-    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1d' });
-    logger.info(`User signed up: ${user.email}`);
-    res.status(201).json({ token, user });
+    const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
+
+    res.status(201).json({ token, userId: user._id, role: user.role });
   } catch (error) {
-    logger.error(`Error during signup: ${error.message}`);
-    res.status(500).json({ error: 'Server error during signup' });
+    logger.error(`Signup error: ${error.message}`);
+    res.status(500).json({ error: 'Internal server error' });
   }
 };
 
